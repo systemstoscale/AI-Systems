@@ -104,11 +104,8 @@ Use your existing VS Code setup.
 git clone https://github.com/YOUR_USERNAME/TheIDEAFramework.git
 cd TheIDEAFramework
 
-# Run setup with your project name
-./setup.sh my-project
-
-# Go to your project
-cd my-project
+# Run the setup script
+./setup.sh
 
 # Add your API keys
 nano .env
@@ -121,7 +118,7 @@ nano .env
 After setup, you'll have:
 
 ```
-my-project/
+TheIDEAFramework/
 ├── .claude/settings.json  → What Claude Code can do
 ├── .env                   → Your API keys (never commit)
 ├── .gitignore             → Protects secrets from git

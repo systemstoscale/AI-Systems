@@ -5,13 +5,11 @@
 #
 # Creates a complete AI agent development environment
 #
-# Usage: ./setup.sh [project_name]
-#        If no name provided, creates "my-idea-project"
+# Usage: ./setup.sh
+#        Installs in the current directory (same folder as the cloned repo)
 # =============================================================================
 
 set -e
-
-PROJECT_NAME="${1:-my-idea-project}"
 
 echo ""
 echo "=============================================="
@@ -19,12 +17,8 @@ echo "  IDEA Framework Setup"
 echo "  Instructions, Decisions, Executions, AI"
 echo "=============================================="
 echo ""
-echo "Creating project: $PROJECT_NAME"
+echo "Setting up project in current directory..."
 echo ""
-
-# Create project directory
-mkdir -p "$PROJECT_NAME"
-cd "$PROJECT_NAME"
 
 # Create folder structure
 echo "[1/7] Creating folder structure..."
@@ -267,7 +261,7 @@ echo "=============================================="
 echo ""
 echo "Project structure:"
 echo ""
-echo "  $PROJECT_NAME/"
+echo "  ./"
 echo "  ├── .claude/settings.json  → Claude Code permissions"
 echo "  ├── .env                   → Your API keys (fill this in)"
 echo "  ├── .env.example           → Template for .env"
@@ -281,10 +275,9 @@ echo "      └── _example.py        → Sample script (delete when ready)"
 echo ""
 echo "Next steps:"
 echo ""
-echo "  1. cd $PROJECT_NAME"
-echo "  2. Fill in your API keys in .env"
-echo "  3. Open in Antigravity or VS Code"
-echo "  4. Start Claude Code and begin building!"
+echo "  1. Fill in your API keys in .env"
+echo "  2. Open in Antigravity or VS Code"
+echo "  3. Start Claude Code and begin building!"
 echo ""
 echo "Optional: Install python-dotenv for .env support:"
 echo "  pip install python-dotenv"

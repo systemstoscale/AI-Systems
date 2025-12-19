@@ -54,11 +54,8 @@ instructions/     →     AI     →     executions/
 git clone https://github.com/YOUR_USERNAME/TheIDEAFramework.git
 cd TheIDEAFramework
 
-# Run the setup script with your project name
-./setup.sh my-project
-
-# Navigate to your project
-cd my-project
+# Run the setup script
+./setup.sh
 
 # Fill in your API keys
 nano .env
@@ -73,7 +70,7 @@ nano .env
 After running `setup.sh`, you get:
 
 ```
-my-project/
+TheIDEAFramework/
 ├── .claude/settings.json  → Claude Code permissions
 ├── .env                   → Your API keys (never commit)
 ├── .gitignore             → Protects secrets
