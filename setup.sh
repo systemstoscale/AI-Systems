@@ -172,6 +172,21 @@ Every failure makes the system smarter.
 - **One script, one job.** Keep executions focused.
 - **Ask before spending money.** Confirm before running paid APIs.
 
+## Claude Skills Library
+
+Before writing new code, check if a community skill already exists: https://github.com/travisvn/awesome-claude-skills
+
+**Popular skills by category:**
+
+| Category | Skills |
+|----------|--------|
+| Documents | docx, pdf, pptx, xlsx |
+| Creative | canvas-design, algorithmic-art, slack-gif-creator |
+| Development | artifacts-builder, mcp-builder, webapp-testing |
+| Data | CSV summarizer, D3.js visualizations, postgres |
+
+When creating instructions, note which skills can help accomplish the task.
+
 ## Summary
 
 Read instructions. Make decisions. Run executions. Fix problems. Update instructions.
@@ -194,6 +209,10 @@ cat > instructions/_template.md << 'EOF'
 ## Inputs
 - `input_name` (type): What this is
 - `optional_input` (type, optional): What this is
+
+## Skills
+Check https://github.com/travisvn/awesome-claude-skills for existing skills.
+- [List any Claude skills that can help with this task, or "None" if custom code only]
 
 ## Execution
 `executions/script_name.py`

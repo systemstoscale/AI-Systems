@@ -289,11 +289,48 @@ The IDEA Framework: **Instructions** tell the AI what to do. **Executions** do t
 
 ---
 
+## Claude Skills Library
+
+Before writing custom code, check if a community skill already exists for your task.
+
+**Browse all skills:** https://github.com/travisvn/awesome-claude-skills
+
+### Popular Skills
+
+| Category | Skills | What they do |
+|----------|--------|--------------|
+| Documents | docx, pdf, pptx, xlsx | Create and edit Office documents |
+| Creative | canvas-design, algorithmic-art | Generate images and visual art |
+| Development | artifacts-builder, webapp-testing | Build UIs, test applications |
+| Data | CSV summarizer, D3.js, postgres | Analyze data, create visualizations |
+
+### Using Skills in Your Instructions
+
+When creating an instruction, check the skills library first. Your instruction template includes a "Skills" section to document which skills can help.
+
+**Example instruction using skills:**
+```markdown
+# Instruction: Generate Monthly Report
+
+## Goal
+Create a PDF report from sales data.
+
+## Skills
+- **xlsx** - Read and analyze the spreadsheet data
+- **pdf** - Generate the final PDF report
+
+## Execution
+`executions/monthly_report.py` (for custom data processing)
+```
+
+---
+
 ## What's Next?
 
-1. **Create your first instruction** - Pick a task you do often
-2. **Let AI build the execution** - Describe what it should do
-3. **Test and refine** - Run it, fix errors, update instructions
-4. **Build your library** - Each instruction+execution makes the system more capable
+1. **Browse the skills library** - See what's already available
+2. **Create your first instruction** - Pick a task you do often
+3. **Let AI build the execution** - Describe what it should do
+4. **Test and refine** - Run it, fix errors, update instructions
+5. **Build your library** - Each instruction+execution makes the system more capable
 
 Happy building!

@@ -106,6 +106,21 @@ Every failure improves the system.
 
 ---
 
+## Claude Skills Library
+
+Before writing custom code, check if a community skill already exists.
+
+**Browse skills:** https://github.com/travisvn/awesome-claude-skills
+
+| Category | Skills |
+|----------|--------|
+| Documents | docx, pdf, pptx, xlsx |
+| Creative | canvas-design, algorithmic-art |
+| Development | artifacts-builder, webapp-testing |
+| Data | CSV summarizer, D3.js, postgres |
+
+---
+
 ## Creating Instructions
 
 Use the template in `instructions/_template.md`:
@@ -119,6 +134,9 @@ Download images from a list of URLs.
 ## Inputs
 - `urls` (list): URLs of images to download
 - `output_dir` (string, optional): Where to save (default: temp/)
+
+## Skills
+- None (custom execution)
 
 ## Execution
 `executions/download_images.py`
