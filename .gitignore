@@ -1,0 +1,18 @@
+# Secrets
+credentials.json
+token.json
+*.pem
+*.key
+
+# Generated outputs (optional — uncomment to track)
+# outputs/
+
+# Temporary files
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+
+# IDE
+.vscode/
+.idea/
