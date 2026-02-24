@@ -1,0 +1,33 @@
+version: 2
+updates:
+  # Template dependencies (minimal)
+  - package-ecosystem: "npm"
+    directory: "/templates"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "max"
+    labels:
+      - "dependencies"
+      - "chore"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # Python template dependencies
+  - package-ecosystem: "pip"
+    directory: "/templates"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "max"
+    labels:
+      - "dependencies"
+      - "chore"
+    commit-message:
+      prefix: "chore(deps)"
