@@ -1,0 +1,9 @@
+# Code Owners for AI Employee Template
+# All code owned by Max (single maintainer)
+
+* @max
+/context/ @max
+/instructions/ @max
+/templates/ @max
+/.github/ @max
+*.md @max
