@@ -59,8 +59,8 @@ After they answer: Write their responses into `context/data.md`.
 ## After All Rounds
 
 1. Read back a brief summary of everything you captured — 4-5 bullet points max
-2. Run the prime workflow: read all context files, scan instructions and scripts
-3. Respond with the standard prime output:
+2. Run the init workflow: read all context files, scan instructions and scripts
+3. Respond with the standard init output:
    - Who you're working for (1 sentence)
    - Current top priority (1 sentence)
    - Available tools (list of instructions and scripts)

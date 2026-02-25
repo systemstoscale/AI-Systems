@@ -58,7 +58,7 @@ NEWS_API_KEY=your_key_here
 Start Claude Code, then run the interactive setup — it asks you questions and fills in all your context files automatically:
 
 ```
-/project:setup
+/setup
 ```
 
 Claude will ask about your business, your role, your goals, and your current metrics. Answer the questions and it writes everything for you. Takes about 5 minutes.
@@ -69,7 +69,7 @@ Claude will ask about your business, your role, your goals, and your current met
 
 After setup, every new session just needs:
 ```
-/project:prime
+/init
 ```
 
 This loads your context so Claude knows who you are. Then ask it to do something — follow an instruction, create a plan, or just chat.
@@ -88,7 +88,7 @@ This pulls 10 articles from NewsAPI and saves them to `outputs/latest-news.md`.
 
 **Step 2:** Start Claude Code and prime it
 ```
-/project:prime
+/init
 ```
 
 **Step 3:** Ask Claude to create content from the news
@@ -114,10 +114,12 @@ AI-Employee/
 ├── .claude/
 │   ├── settings.json          # Permissions (safe mode)
 │   └── commands/
-│       ├── setup.md           # /project:setup — interactive first-time setup
-│       ├── prime.md           # /project:prime — load context
-│       ├── create-plan.md     # /project:create-plan — plan a task
-│       └── implement.md       # /project:implement — execute a plan
+│       ├── setup.md           # /setup — interactive first-time setup
+│       ├── init.md            # /init — load context
+│       ├── create-plan.md     # /create-plan — plan a task
+│       ├── implement.md       # /implement — execute a plan
+│       ├── brief.md           # /brief — daily briefing
+│       └── checkin.md         # /checkin — productivity check-in
 │
 ├── CLAUDE.md                  # AI behavior rules
 │
@@ -126,14 +128,21 @@ AI-Employee/
 │   ├── personal.md            # Your role & preferences
 │   ├── strategy.md            # Current goals & priorities
 │   ├── data.md                # Current metrics (optional)
+│   ├── ai-employee.md         # Module registry (track active modules)
 │   └── _examples.md           # 3 filled-in examples to learn from
 │
 ├── instructions/              # Task guides and plans
 │   ├── _template.md           # Template for new instructions
-│   └── _example-*.md          # 7 example instructions (news, blogs, reports...)
+│   └── _example-*.md          # 10 example instructions
 │
 ├── scripts/                   # Code that does the work
-│   └── fetch-news.py          # Fetch latest news from NewsAPI
+│   ├── fetch-news.py          # Fetch latest news from NewsAPI
+│   ├── daily-brief.py         # Morning briefing (Stripe + custom)
+│   ├── fetch-metrics.py       # Metrics aggregation layer
+│   ├── meeting-intel.py       # Google Meet transcript search
+│   ├── email-capture.py       # Gmail inbox digest
+│   ├── slack-intel.py         # Slack channel summaries
+│   └── fetch-social-profiles.py  # Social media data
 │
 └── outputs/                   # Generated content goes here
 ```
@@ -144,10 +153,33 @@ AI-Employee/
 
 | Command | What It Does |
 |---------|-------------|
-| `/project:setup` | First-time setup. Asks you questions, fills in all your context files automatically. |
-| `/project:prime` | Loads your context so Claude knows who you are. Run at the start of every session. |
-| `/project:create-plan` | Creates a step-by-step plan for a task. Saves it to `instructions/`. |
-| `/project:implement` | Executes the most recent plan, self-correcting when things break. |
+| `/setup` | First-time setup. Asks you questions, fills in all your context files automatically. |
+| `/init` | Loads your context so Claude knows who you are. Run at the start of every session. |
+| `/create-plan` | Creates a step-by-step plan for a task. Saves it to `instructions/`. |
+| `/implement` | Executes the most recent plan, self-correcting when things break. |
+| `/brief` | Generates your daily briefing (revenue, pipeline, health, tasks). |
+| `/checkin` | Runs a productivity check-in based on time of day. |
+
+---
+
+## AI Employee Modules
+
+Beyond context stacking, the workspace supports automation modules. Each adds a capability you can activate independently.
+
+| # | Module | Script | What It Does |
+|---|--------|--------|-------------|
+| 1 | Context OS | -- | Loads business context each session (`/init`) |
+| 2 | Daily Brief | `daily-brief.py` | Morning briefing: revenue, pipeline, health, tasks |
+| 3 | Data Dashboard | `fetch-metrics.py` | Aggregates metrics from your integrations |
+| 4 | Productivity | -- | Goal tracking, habit logging, day review (`/checkin`) |
+| 5 | Slack Intelligence | `slack-intel.py` | Channel summaries, action item extraction |
+| 6 | Meeting Intelligence | `meeting-intel.py` | Google Meet transcript search, meeting digest |
+| 7 | Email Capture | `email-capture.py` | Gmail inbox digest, categorized by urgency |
+| 8 | Mobile Access | -- | Telegram bot for commands on the go |
+
+**Start with Context OS** (already built in). Then add Daily Brief (just needs a Stripe key). Layer on more modules as you need them. Each module is a standalone script in `scripts/` — nothing breaks if you skip one.
+
+Track which modules you've activated in `context/ai-employee.md`.
 
 ---
 
@@ -156,7 +188,7 @@ AI-Employee/
 Examples are built into the workspace — no setup needed:
 
 - **`context/_examples.md`** — Three filled-in context examples showing how to fill in your own files
-- **`instructions/_example-*.md`** — Seven example instructions:
+- **`instructions/_example-*.md`** — Ten example instructions:
 
 | File | Use Case |
 |------|----------|
@@ -167,6 +199,9 @@ Examples are built into the workspace — no setup needed:
 | `_example-study-guide.md` | Exam study guides |
 | `_example-weekly-report.md` | Weekly status reports |
 | `_example-competitor-analysis.md` | Competitor research |
+| `_example-daily-brief.md` | Daily briefing module setup |
+| `_example-data-dashboard.md` | Metrics aggregation setup |
+| `_example-checkin.md` | Productivity check-in setup |
 
 ---
 
@@ -176,7 +211,7 @@ Examples are built into the workspace — no setup needed:
 2. Fill in the sections (Goal, Inputs, Steps, Output, etc.)
 3. Save it in `instructions/`
 
-Or use `/project:create-plan` to have Claude design a new workflow for you.
+Or use `/create-plan` to have Claude design a new workflow for you.
 
 ---
 
@@ -184,7 +219,7 @@ Or use `/project:create-plan` to have Claude design a new workflow for you.
 
 **"claude: command not found"** — Make sure the Claude Code extension is installed. Restart your terminal.
 
-**Context not loading on `/project:prime`** — Make sure your context files are saved and not still placeholder templates.
+**Context not loading on `/init`** — Make sure your context files are saved and not still placeholder templates.
 
 **"NEWS_API_KEY not found"** — Open `.env` and add your key. Get one free at [newsapi.org/register](https://newsapi.org/register).
 

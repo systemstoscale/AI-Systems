@@ -16,8 +16,8 @@ context/       →  instructions/  →  scripts/   →  outputs/
 
 ## Your Rules
 
-### Rule 1: Prime yourself first
-At the start of every session, read the context files. If the user runs `/project:prime`, follow that command. Otherwise, read `context/` before doing anything else.
+### Rule 1: Initialize yourself first
+At the start of every session, read the context files. If the user runs `/init`, follow that command. Otherwise, read `context/` before doing anything else.
 
 ### Rule 2: Check before you create
 Before writing new code, check `scripts/` for existing scripts and `instructions/` for existing guides. Only create new files when nothing fits.
@@ -61,9 +61,30 @@ This is what makes the system get smarter over time. Every fix gets documented s
 - **Local first.** Save to `outputs/` unless told otherwise.
 - **Check the skills library.** Before writing custom code, check: https://github.com/anthropics/skills
 
+## AI Employee Modules
+
+The workspace supports an optional module system for automation. Each module is independent — add them one at a time as needed.
+
+| # | Module | Script | Command | What It Does |
+|---|--------|--------|---------|-------------|
+| 1 | Context OS | -- | `/init` | Loads business context each session |
+| 2 | Daily Brief | `scripts/daily-brief.py` | `/brief` | Morning briefing: revenue, pipeline, health, tasks |
+| 3 | Data Dashboard | `scripts/fetch-metrics.py` | -- | Aggregates metrics from all integrations |
+| 4 | Productivity | -- | `/checkin` | Goal tracking, habit logging, day review |
+| 5 | Slack Intelligence | `scripts/slack-intel.py` | -- | Channel summaries, action item extraction |
+| 6 | Meeting Intelligence | `scripts/meeting-intel.py` | -- | Google Meet transcript search, meeting digest |
+| 7 | Email Capture | `scripts/email-capture.py` | -- | Gmail inbox digest, categorized by urgency |
+| 8 | Mobile Access | -- | -- | Telegram bot for commands on the go |
+
+**Start here:** Context OS is built in. Add Daily Brief next (just needs `STRIPE_SECRET_KEY`). Then layer on more modules as you need them.
+
+See `context/ai-employee.md` for the full module registry and setup checklist.
+
 ## Commands
 
-- `/project:setup` — First-time setup: asks you questions, fills in all context files automatically
-- `/project:prime` — Load context and orient yourself for the session (run at start of every session)
-- `/project:create-plan` — Create an implementation plan for a task
-- `/project:implement` — Execute a plan step by step
+- `/setup` — First-time setup: asks you questions, fills in all context files automatically
+- `/init` — Load context and orient yourself for the session (run at start of every session)
+- `/create-plan` — Create an implementation plan for a task
+- `/implement` — Execute a plan step by step
+- `/brief` — Run your daily brief (requires daily-brief module setup)
+- `/checkin` — Run a productivity check-in

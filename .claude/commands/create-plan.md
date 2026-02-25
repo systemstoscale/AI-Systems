@@ -39,4 +39,4 @@ Created: [date]
 - [Anything that needs clarification before implementing]
 ```
 
-After saving, display the plan and tell the user: "Ready to implement? Run `/project:implement`"
+After saving, display the plan and tell the user: "Ready to implement? Run `/implement`"
