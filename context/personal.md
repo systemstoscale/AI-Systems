@@ -1,16 +1,19 @@
 # Personal Context
 
 ## About Me
-- **Name**: [Your name]
-- **Role**: [Your title or role]
-- **Experience with code**: [None / Beginner / Intermediate / Advanced]
+- **Name**: Maxime Warnault
+- **Role**: Founder, Skalers.io
+- **Experience with code**: Advanced
 
 ## How I Work
-- **Communication style**: [e.g., Brief and direct / Detailed explanations / Step-by-step]
-- **Preferred output format**: [e.g., Markdown / Google Docs / Plain text / Slides]
-- **Risk tolerance**: [e.g., Ask before acting / Move fast / Somewhere in between]
+- **Communication style**: Brief and direct
+- **Preferred output format**: Markdown
+- **Risk tolerance**: Move fast — don't ask, just do it
 
 ## What I Use This Workspace For
-- [Primary use case 1]
-- [Primary use case 2]
-- [Primary use case 3]
+- Managing the entire business while away (hiking, off-grid, etc.)
+- Automating and delegating business operations
+- Running Skalers.io without being the bottleneck
+
+## Pet Peeves
+- Never use em dashes (—) anywhere, ever
