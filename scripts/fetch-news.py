@@ -15,6 +15,7 @@ No pip install needed — uses Python standard library only.
 import os
 import sys
 import json
+import ssl
 import urllib.request
 import urllib.parse
 from datetime import datetime
@@ -43,8 +44,9 @@ def fetch_news(topic, api_key):
     })
     url = f"https://newsapi.org/v2/everything?{params}"
 
+    ctx = ssl.create_default_context(cafile="/etc/ssl/cert.pem")
     req = urllib.request.Request(url, headers={"User-Agent": "AIEmployee/1.0"})
-    with urllib.request.urlopen(req) as response:
+    with urllib.request.urlopen(req, context=ctx) as response:
         return json.loads(response.read().decode())
 
 
