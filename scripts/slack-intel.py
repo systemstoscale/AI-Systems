@@ -6,10 +6,14 @@ Reads Slack channels, extracts action items, and generates summaries.
 Feeds into the Daily Brief for context on team activity.
 
 Setup:
-    1. Create a Slack app at api.slack.com/apps
-    2. Add bot scopes: channels:history, channels:read
-    3. Install to workspace, copy Bot Token
-    4. Set SLACK_BOT_TOKEN in .env
+    Option A (Composio - recommended):
+        python scripts/connections.py connect slack
+
+    Option B (Direct API):
+        1. Create a Slack app at api.slack.com/apps
+        2. Add bot scopes: channels:history, channels:read
+        3. Install to workspace, copy Bot Token
+        4. Set SLACK_BOT_TOKEN in .env
 
 Usage:
     python scripts/slack-intel.py                           # All channels
@@ -18,48 +22,40 @@ Usage:
 """
 
 import os
-import json
+import sys
 from datetime import datetime, timedelta
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Add scripts dir to path for connections adapter
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-def get_slack_client():
-    """Get a simple Slack API wrapper using requests."""
-    token = os.getenv("SLACK_BOT_TOKEN")
-    if not token:
-        return None, "SLACK_BOT_TOKEN not set in .env"
-    return token, None
 
+# ── Direct API fallback functions ──────────────────────────────
 
 def slack_api(method, token, params=None):
-    """Make a Slack API call."""
+    """Make a Slack API call (direct fallback)."""
     try:
         import requests
     except ImportError:
         print("Install requests: pip install requests")
         return None
-
     url = f"https://slack.com/api/{method}"
     headers = {"Authorization": f"Bearer {token}"}
     resp = requests.get(url, headers=headers, params=params or {})
     data = resp.json()
     if not data.get("ok"):
-        print(f"Slack API error: {data.get('error', 'unknown')}")
         return None
     return data
 
 
 def list_channels(token):
-    """List channels the bot has access to."""
-    data = slack_api("conversations.list", token, {
-        "types": "public_channel,private_channel",
-        "limit": 100,
-    })
+    """List channels (direct fallback)."""
+    data = slack_api("conversations.list", token, {"types": "public_channel,private_channel", "limit": 100})
     if not data:
         return []
-
     return [
         {"id": c["id"], "name": c["name"], "members": c.get("num_members", 0)}
         for c in data.get("channels", [])
@@ -68,17 +64,11 @@ def list_channels(token):
 
 
 def get_channel_messages(token, channel_id, hours=24):
-    """Get recent messages from a channel."""
+    """Get recent messages from a channel (direct fallback)."""
     oldest = str((datetime.now() - timedelta(hours=hours)).timestamp())
-
-    data = slack_api("conversations.history", token, {
-        "channel": channel_id,
-        "oldest": oldest,
-        "limit": 100,
-    })
+    data = slack_api("conversations.history", token, {"channel": channel_id, "oldest": oldest, "limit": 100})
     if not data:
         return []
-
     messages = []
     for msg in data.get("messages", []):
         if msg.get("subtype") in ("channel_join", "channel_leave", "bot_message"):
@@ -89,9 +79,10 @@ def get_channel_messages(token, channel_id, hours=24):
             "ts": msg.get("ts", ""),
             "reactions": len(msg.get("reactions", [])),
         })
-
     return messages
 
+
+# ── Core Logic ─────────────────────────────────────────────────
 
 def summarize_channel(channel_name, messages):
     """Generate a summary of channel activity."""
@@ -104,25 +95,51 @@ def summarize_channel(channel_name, messages):
     return f"**#{channel_name}**: {total} messages ({reacted} with reactions)"
 
 
-def get_slack_digest(channels=None, hours=24):
-    """Generate a full Slack digest."""
-    token, error = get_slack_client()
-    if error:
-        return {"available": False, "error": error}
+def _get_channels_and_messages(channels_filter, hours):
+    """Get channels and their messages using connections adapter or direct API."""
+    try:
+        from connections import get_slack_channels, get_slack_messages as conn_get_messages
+        all_channels = get_slack_channels()
+        if all_channels:
+            if channels_filter:
+                all_channels = [c for c in all_channels if c["name"] in channels_filter]
+            result = []
+            for ch in all_channels:
+                msgs = conn_get_messages(ch["id"], hours=hours)
+                result.append((ch, msgs))
+            return result
+    except ImportError:
+        pass
 
+    # Fallback to direct API
+    token = os.getenv("SLACK_BOT_TOKEN")
+    if not token:
+        return None
     all_channels = list_channels(token)
     if not all_channels:
-        return {"available": False, "error": "No channels accessible"}
+        return None
+    if channels_filter:
+        all_channels = [c for c in all_channels if c["name"] in channels_filter]
+    result = []
+    for ch in all_channels:
+        msgs = get_channel_messages(token, ch["id"], hours=hours)
+        result.append((ch, msgs))
+    return result
 
-    # Filter to specific channels if requested
-    if channels:
-        all_channels = [c for c in all_channels if c["name"] in channels]
+
+def get_slack_digest(channels=None, hours=24):
+    """Generate a full Slack digest. Uses connections adapter (Composio or direct)."""
+    channel_data = _get_channels_and_messages(channels, hours)
+    if channel_data is None:
+        return {"available": False, "error": "Slack not configured. Run: python scripts/connections.py connect slack"}
+
+    if not channel_data:
+        return {"available": False, "error": "No channels accessible"}
 
     summaries = []
     total_messages = 0
 
-    for channel in all_channels:
-        messages = get_channel_messages(token, channel["id"], hours=hours)
+    for channel, messages in channel_data:
         total_messages += len(messages)
         summaries.append({
             "channel": channel["name"],
@@ -135,7 +152,7 @@ def get_slack_digest(channels=None, hours=24):
 
     return {
         "available": True,
-        "channels_checked": len(all_channels),
+        "channels_checked": len(channel_data),
         "total_messages": total_messages,
         "hours": hours,
         "summaries": summaries,

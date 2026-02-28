@@ -3,13 +3,16 @@
 Meeting Intelligence - Template for AI Employee module.
 
 Search Google Meet transcripts, list upcoming meetings, and generate digests.
-Requires Google OAuth setup (see instructions/health-integration-setup.md for OAuth pattern).
 
 Setup:
-    1. Enable Google Calendar API + Drive API in Google Cloud Console
-    2. Download credentials.json to this directory
-    3. Run this script once to complete OAuth flow
-    4. Transcript access requires Google Meet transcription enabled
+    Option A (Composio - recommended):
+        python scripts/connections.py connect google
+
+    Option B (Direct API):
+        1. Enable Google Calendar API + Drive API in Google Cloud Console
+        2. Download credentials.json to this directory
+        3. Run this script once to complete OAuth flow
+        4. Transcript access requires Google Meet transcription enabled
 
 Usage:
     python scripts/meeting-intel.py                     # Today's meetings
@@ -18,13 +21,17 @@ Usage:
 """
 
 import os
-import json
+import sys
 from datetime import datetime, timedelta
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Google API scopes needed
+# Add scripts dir to path for connections adapter
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+# Google API scopes (for direct API fallback)
 SCOPES = [
     "https://www.googleapis.com/auth/calendar.readonly",
     "https://www.googleapis.com/auth/drive.readonly",
@@ -32,11 +39,7 @@ SCOPES = [
 
 
 def get_google_service(service_name, version):
-    """
-    Get an authenticated Google API service.
-    You'll need to implement OAuth2 flow — see Google's quickstart:
-    https://developers.google.com/calendar/api/quickstart/python
-    """
+    """Get an authenticated Google API service (direct API fallback)."""
     try:
         from google.oauth2.credentials import Credentials
         from google_auth_oauthlib.flow import InstalledAppFlow
@@ -61,7 +64,8 @@ def get_google_service(service_name, version):
 
         return build(service_name, version, credentials=creds)
     except ImportError:
-        print("Install Google API libraries: pip install google-api-python-client google-auth-oauthlib")
+        print("Direct Google API not available. Install: pip install google-api-python-client google-auth-oauthlib")
+        print("Or connect via Composio: python scripts/connections.py connect google")
         return None
     except Exception as e:
         print(f"Google auth error: {e}")
@@ -69,19 +73,27 @@ def get_google_service(service_name, version):
 
 
 def list_meetings(days=1):
-    """List meetings from Google Calendar."""
+    """List meetings from Google Calendar. Uses connections adapter (Composio or direct)."""
+    try:
+        from connections import get_calendar_events
+        meetings = get_calendar_events(days=days)
+        if meetings:
+            return meetings
+    except ImportError:
+        pass
+
+    # Fallback to direct API if connections adapter unavailable
     service = get_google_service("calendar", "v3")
     if not service:
         return []
 
     now = datetime.utcnow()
-    start = (now - timedelta(days=days)).isoformat() + "Z"
-    end = now.isoformat() + "Z" if days > 0 else (now + timedelta(days=1)).isoformat() + "Z"
-
-    # For today's meetings, look forward
     if days <= 1:
         start = now.replace(hour=0, minute=0, second=0).isoformat() + "Z"
         end = (now.replace(hour=0, minute=0, second=0) + timedelta(days=1)).isoformat() + "Z"
+    else:
+        start = (now - timedelta(days=days)).isoformat() + "Z"
+        end = now.isoformat() + "Z"
 
     events = service.events().list(
         calendarId="primary",
@@ -95,7 +107,6 @@ def list_meetings(days=1):
     for event in events.get("items", []):
         attendees = event.get("attendees", [])
         meet_link = event.get("hangoutLink", "")
-        # Filter to actual meetings (has attendees or Meet link)
         if attendees or meet_link:
             meetings.append({
                 "summary": event.get("summary", "(No title)"),

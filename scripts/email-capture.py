@@ -11,9 +11,13 @@ Categories:
   - Marketing: promotional content
 
 Setup:
-    1. Enable Gmail API in Google Cloud Console
-    2. Download credentials.json to this directory
-    3. Run this script once to complete OAuth flow
+    Option A (Composio - recommended):
+        python scripts/connections.py connect google
+
+    Option B (Direct API):
+        1. Enable Gmail API in Google Cloud Console
+        2. Download credentials.json to this directory
+        3. Run this script once to complete OAuth flow
 
 Usage:
     python scripts/email-capture.py                 # Default (20 emails)
@@ -22,44 +26,15 @@ Usage:
 """
 
 import os
+import sys
 from datetime import datetime
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
 
-SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
-
-
-def get_gmail_service():
-    """Get authenticated Gmail service. Same OAuth pattern as meeting-intel.py."""
-    try:
-        from google.oauth2.credentials import Credentials
-        from google_auth_oauthlib.flow import InstalledAppFlow
-        from googleapiclient.discovery import build
-
-        creds = None
-        token_path = "token.json"
-        creds_path = os.getenv("GOOGLE_CREDENTIALS_PATH", "credentials.json")
-
-        if os.path.exists(token_path):
-            creds = Credentials.from_authorized_user_file(token_path, SCOPES)
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                from google.auth.transport.requests import Request
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(creds_path, SCOPES)
-                creds = flow.run_local_server(port=0)
-            with open(token_path, "w") as f:
-                f.write(creds.to_json())
-
-        return build("gmail", "v1", credentials=creds)
-    except ImportError:
-        print("Install: pip install google-api-python-client google-auth-oauthlib")
-        return None
-    except Exception as e:
-        print(f"Gmail auth error: {e}")
-        return None
+# Add scripts dir to path for connections adapter
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 def categorize_email(email):
@@ -82,50 +57,28 @@ def categorize_email(email):
 
 
 def get_inbox_digest(max_results=20, unread_only=False):
-    """Generate categorized inbox digest."""
-    service = get_gmail_service()
-    if not service:
-        return {"available": False, "error": "Gmail not configured"}
-
-    query = "is:inbox is:unread" if unread_only else "is:inbox"
-
+    """Generate categorized inbox digest. Uses connections adapter (Composio or direct)."""
     try:
-        results = service.users().messages().list(
-            userId="me", q=query, maxResults=max_results
-        ).execute()
+        from connections import get_gmail_messages
+        messages = get_gmail_messages(max_results=max_results, unread_only=unread_only)
+    except ImportError:
+        return {"available": False, "error": "connections.py not found in scripts/"}
 
-        messages = results.get("messages", [])
+    if not messages:
+        return {"available": False, "error": "Gmail not configured. Run: python scripts/connections.py connect google"}
 
-        categorized = {"action_required": [], "fyi": [], "marketing": []}
+    categorized = {"action_required": [], "fyi": [], "marketing": []}
 
-        for msg_ref in messages:
-            msg = service.users().messages().get(
-                userId="me", id=msg_ref["id"], format="metadata",
-                metadataHeaders=["Subject", "From", "Date"]
-            ).execute()
+    for email in messages:
+        category = categorize_email(email)
+        categorized[category].append(email)
 
-            headers = {h["name"]: h["value"] for h in msg.get("payload", {}).get("headers", [])}
-
-            email = {
-                "id": msg["id"],
-                "subject": headers.get("Subject", "(No subject)"),
-                "from": headers.get("From", ""),
-                "date": headers.get("Date", ""),
-                "snippet": msg.get("snippet", ""),
-                "labelIds": msg.get("labelIds", []),
-            }
-
-            category = categorize_email(email)
-            categorized[category].append(email)
-
-        return {
-            "available": True,
-            "total_processed": len(messages),
-            "action_required_count": len(categorized["action_required"]),
-            "categorized": categorized,
-        }
-    except Exception as e:
-        return {"available": False, "error": str(e)}
+    return {
+        "available": True,
+        "total_processed": len(messages),
+        "action_required_count": len(categorized["action_required"]),
+        "categorized": categorized,
+    }
 
 
 def format_digest(digest):

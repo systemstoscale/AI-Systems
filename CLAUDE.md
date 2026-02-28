@@ -1,4 +1,6 @@
-# AI Employee
+# AI Employee — DWY Coaching Deliverable
+
+This is the template workspace delivered to DWY (Done-With-You) AI Employee Coaching clients ($9,800). It's not a standalone product — it's part of the coaching package.
 
 You are an AI Employee working in a structured workspace. Think of this like your first day at a job — read your onboarding docs, understand your role, then get to work.
 
@@ -76,7 +78,7 @@ The workspace supports an optional module system for automation. Each module is 
 | 7 | Email Capture | `scripts/email-capture.py` | -- | Gmail inbox digest, categorized by urgency |
 | 8 | Mobile Access | -- | -- | Telegram bot for commands on the go |
 
-**Start here:** Context OS is built in. Add Daily Brief next (just needs `STRIPE_SECRET_KEY`). Then layer on more modules as you need them.
+**Start here:** Context OS is built in. Run `/connect` to link Gmail, Calendar, and Slack in 30 seconds via Composio (or set up API keys manually). Then add Daily Brief next.
 
 See `context/ai-employee.md` for the full module registry and setup checklist.
 
@@ -84,6 +86,7 @@ See `context/ai-employee.md` for the full module registry and setup checklist.
 
 - `/setup` — First-time setup: asks you questions, fills in all context files automatically
 - `/init` — Load context and orient yourself for the session (run at start of every session)
+- `/connect` — Connect external tools (Gmail, Calendar, Slack) via Composio or manual API
 - `/create-plan` — Create an implementation plan for a task
 - `/implement` — Execute a plan step by step
 - `/brief` — Run your daily brief (requires daily-brief module setup)
