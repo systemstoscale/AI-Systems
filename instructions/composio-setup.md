@@ -58,7 +58,7 @@ Each module automatically detects Composio connections and uses them.
 `scripts/connections.py` — the connection adapter
 
 ## Output
-Connected external tools available to all AI Employee modules.
+Connected external tools available to all AI Systems modules.
 
 ## Requirements
 - `COMPOSIO_API_KEY` in `.env`

@@ -1,7 +1,7 @@
 # SOP: Health Data Integration
 
 ## Goal
-Connect your wearables and health devices to your AI Employee so it can track sleep, recovery, HRV, workouts, weight, and body composition — all flowing into your Daily Brief.
+Connect your wearables and health devices to your AI Systems so it can track sleep, recovery, HRV, workouts, weight, and body composition — all flowing into your Daily Brief.
 
 ## Supported Sources
 
@@ -40,7 +40,7 @@ python _shared/scripts/integrations/oura_client.py --summary
 
 ### Sync to Supabase
 ```bash
-python _shared/scripts/ai-employee/health_sync.py --source oura --days 7
+python _shared/scripts/ai-systems/health_sync.py --source oura --days 7
 ```
 
 ### What You Get
@@ -77,7 +77,7 @@ python _shared/scripts/integrations/whoop_client.py --summary
 
 ### Sync to Supabase
 ```bash
-python _shared/scripts/ai-employee/health_sync.py --source whoop --days 7
+python _shared/scripts/ai-systems/health_sync.py --source whoop --days 7
 ```
 
 ### What You Get

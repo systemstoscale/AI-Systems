@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Daily Brief - Template for AI Employee module.
+Daily Brief - Template for AI Systems module.
 
 Configure your data sources below, then run:
     python scripts/daily-brief.py

@@ -1,4 +1,4 @@
-# Init — Session Initialization
+# Context — Session Initialization
 
 You are starting a new session. Get up to speed on who you're working for and what's happening.
 

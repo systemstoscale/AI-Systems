@@ -12,13 +12,13 @@ We currently support the following versions with security updates:
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in the AI Employee course template, please report it to us privately:
+If you discover a security vulnerability in the AI Systems course template, please report it to us privately:
 
 ### How to Report
 
 1. **DO NOT** open a public GitHub issue for security vulnerabilities
 2. **Email**: security@skalers.io
-3. **Subject Line**: `[SECURITY] AI Employee Template - Brief description`
+3. **Subject Line**: `[SECURITY] AI Systems Template - Brief description`
 4. **Include**:
    - Description of the vulnerability
    - Affected template/file
@@ -63,7 +63,7 @@ _None reported yet. This section will be updated as issues are discovered and re
 
 ## Security Best Practices for Students
 
-If you're using the AI Employee template:
+If you're using the AI Systems template:
 
 1. **Replace all placeholder values**: Never use example API keys
 2. **Gitignore secrets**: Always add `.env` to `.gitignore`
@@ -74,7 +74,7 @@ If you're using the AI Employee template:
 
 ## Security Best Practices for Contributors
 
-If you're contributing to the AI Employee template:
+If you're contributing to the AI Systems template:
 
 1. **No real secrets**: Use fake/placeholder values only
 2. **Security comments**: Add warnings where security matters
@@ -128,7 +128,7 @@ When security issues are fixed:
 - **GitHub**: @systemstoscale
 - **Skool Community**: (link provided to enrolled students)
 
-Thank you for helping keep the AI Employee template secure!
+Thank you for helping keep the AI Systems template secure!
 
 ---
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fetch Metrics - Template for AI Employee Data Dashboard.
+Fetch Metrics - Template for AI Systems Data Dashboard.
 
 Generic metrics aggregation script. Configure your data sources below.
 Returns a structured dict that daily-brief.py can use.

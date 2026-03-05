@@ -1,8 +1,17 @@
 # Secrets
+.env
 credentials.json
 token.json
 *.pem
 *.key
+
+# Internal course content
+outputs/lessons-for-recording/
+
+# Paid modules (not in public template)
+apps/
+modules/
+run_bot.py
 
 # Generated outputs (optional — uncomment to track)
 # outputs/

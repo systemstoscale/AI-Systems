@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Email Capture - Template for AI Employee module.
+Email Capture - Template for AI Systems module.
 
 Reads Gmail inbox, categorizes emails by urgency, and generates a digest.
 Feeds into the Daily Brief for the "Action Required" section.

@@ -1,3 +1,18 @@
+---
+module_id:
+module_name:
+module_number:
+category:       # core | business
+description:
+env_keys:
+  required: []
+  optional: []
+pip_packages: []
+test_command: null
+estimated_time:
+interactive_steps: false
+---
+
 # Instruction: [Task Name]
 
 ## Goal

@@ -37,7 +37,7 @@ Your webhook is a small server that receives health data and writes it to Supaba
 
 **Option A: Railway (Recommended)**
 1. Create a new Railway project
-2. Deploy `apple_health_webhook.py` (from `_shared/scripts/ai-employee/`)
+2. Deploy `apple_health_webhook.py` (from `_shared/scripts/ai-systems/`)
 3. Set environment variables:
    - `NEXT_PUBLIC_SUPABASE_URL` — Your Supabase URL
    - `SUPABASE_SERVICE_ROLE_KEY` — Your Supabase service role key

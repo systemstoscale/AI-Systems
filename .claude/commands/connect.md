@@ -28,7 +28,7 @@ You are helping the user connect their external tools (Gmail, Calendar, Slack, e
 
 5. After connecting, run `python scripts/connections.py status` again to verify.
 
-6. Say: **"Tool connected! Your AI Employee modules (Email Capture, Meeting Intelligence, etc.) will now use this connection automatically."**
+6. Say: **"Tool connected! Your AI Systems modules (Email Capture, Meeting Intelligence, etc.) will now use this connection automatically."**
 
 ## Important
 - Don't force Composio — some users prefer direct API keys

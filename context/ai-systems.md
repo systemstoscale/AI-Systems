@@ -1,4 +1,4 @@
-# AI Employee - Module Registry
+# AI Systems - Module Registry
 
 *Track which modules are active and how they're configured.*
 
@@ -13,9 +13,20 @@
 | 5 | Slack Intelligence | Not configured | `scripts/slack-intel.py` | -- | Channel summaries, action item extraction |
 | 6 | Meeting Intelligence | Not configured | `scripts/meeting-intel.py` | -- | Google Meet transcript search, meeting digest |
 | 7 | Email Capture | Not configured | `scripts/email-capture.py` | -- | Gmail inbox digest, categorized by urgency |
-| 8 | Mobile Access | Not configured | -- | -- | Telegram bot for commands on the go |
+| 8 | Command Center | Not configured | `apps/command/` | -- | Telegram bot — AI Systems on your phone |
+| | | | | | |
+| | **Business Modules** | | | | |
+| 9 | Prospecting | Not configured | -- | `/install prospecting` | Lead scraping, enrichment, cold email, reply classification |
+| 10 | Content Pipeline | Not configured | -- | `/install content` | Topic research, scripts, social repurposing, publishing |
+| 11 | Paid Ads | Not configured | -- | `/install ads` | Ad monitoring, alerts, optimization recommendations |
+| 12 | Image Generation | Not configured | -- | `/install images` | AI image generation for brand assets and thumbnails |
+| 13 | Video Creation | Not configured | -- | `/install video` | AI voice, avatar, auto-editing, clip extraction |
+| 14 | Partnerships | Not configured | -- | `/install partners` | Referral tracking, testimonials, partner program |
+| 15 | Operations | Not configured | -- | `/install ops` | Daily briefs, KPIs, inbox management, habits |
 
 **Status options:** `Active` | `Configured` | `Not configured`
+
+**Install any module:** `/install <module-name>` — the AI handles everything.
 
 ## Data Sources
 
@@ -24,7 +35,7 @@
 | Google (Gmail + Calendar) | Not configured | Composio OAuth OR `credentials.json` | Email Capture, Meeting Intel, Daily Brief |
 | Slack | Not configured | Composio OAuth OR `SLACK_BOT_TOKEN` | Slack Intelligence module |
 | Stripe | Not configured | `STRIPE_SECRET_KEY` (direct) | Revenue in Daily Brief |
-| Telegram | Not configured | `TELEGRAM_BOT_TOKEN` (direct) | Mobile Access module |
+| Telegram | Not configured | `COMMAND_CENTER_BOT_TOKEN` (direct) | Command Center module |
 | Your CRM | Not configured | _(varies)_ | Pipeline in Daily Brief |
 | Health Tracker | Not configured | _(varies)_ | Health in Daily Brief |
 
@@ -64,10 +75,9 @@ Modules are independent. If a data source is missing, that section just shows "N
 
 ## Setup Checklist
 
-1. [ ] Fill in `context/` files (business, personal, strategy)
-2. [ ] Run `/init` to verify context loads
-3. [ ] Run `/connect` to link Google + Slack via Composio (or set up API keys manually)
-4. [ ] Add `STRIPE_SECRET_KEY` to `.env` (for revenue data)
-5. [ ] Run `python scripts/daily-brief.py` to test
-6. [ ] Create a Telegram bot via @BotFather (optional)
-7. [ ] Update this file as you activate modules
+1. [ ] Run `/setup` — fill in context files (business, personal, strategy)
+2. [ ] Run `/init` — verify context loads
+3. [ ] Run `/connect` — link Google + Slack via Composio
+4. [ ] Run `/status` — see what's available
+5. [ ] Run `/install <module>` — install modules one at a time
+6. [ ] This file updates automatically as you install modules

@@ -1,32 +1,23 @@
 # Current Strategy
 
-*Last updated: 2026-02-23*
+*Last updated: [date]*
 
 ## Top Priority
-Scale the AI agency to $100K/month while working 4 hours a day or less.
+[Your #1 goal right now — one sentence]
 
 ## Current Goals
-1. Hit $100K/month revenue
-2. Cap working hours at 4/day
-3. Finish and launch the Skool community with full AI Employee integration
+1. [Goal 1]
+2. [Goal 2]
+3. [Goal 3]
 
 ## Active Projects
-- **skalers.io**: Core AI agency — main revenue driver
-- **10xleads.io**: Lead generation product/system
-- **10xcontent.io**: Content creation product/system
-- **AI Employee**: This workspace — autonomous business management
-- **Skool Community**: Course + community wrapping all of the above
+- **[Project 1]**: [What it is]
+- **[Project 2]**: [What it is]
 
 ## Key Metrics
-- Leads
-- Calls booked
-- Clients (count + MRR)
-- Time to value (client onboarding speed)
-- NPS score
-- Working hours per day
-- Profit per hour
+- [Metric 1]
+- [Metric 2]
+- [Metric 3]
 
 ## What's NOT a Priority Right Now
-- Anything outside of the 5 active projects above
-- New product ideas not already in motion
-- Vanity metrics (followers, views) unless tied to leads
+- [Things you're intentionally ignoring]

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Connection Adapter - Universal tool connection layer for AI Employee.
+Connection Adapter - Universal tool connection layer for AI Systems.
 
 Provides a unified interface for accessing external services.
 Tries Composio first (one-click OAuth), falls back to direct API.
@@ -38,7 +38,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Add shared integrations to path
-_shared = Path(__file__).resolve().parent.parent.parent / "_shared" / "scripts"
+_shared = Path(__file__).resolve().parent.parent.parent / "Skalers.io" / "scripts"
 if str(_shared) not in sys.path:
     sys.path.insert(0, str(_shared))
 
@@ -460,7 +460,7 @@ def connect_tool(provider: str) -> bool:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="AI Employee Tool Connections")
+    parser = argparse.ArgumentParser(description="AI Systems Tool Connections")
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
 
     subparsers.add_parser("status", help="Show connection status")

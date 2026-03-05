@@ -1,6 +1,6 @@
-# Contributing to AI Employee Template
+# Contributing to AI Systems Template
 
-Thank you for considering contributing! This template helps students build AI employees.
+Thank you for considering contributing! This template helps students build AI systems.
 
 ## Prerequisites
 - Understanding of AI agents and Claude Code
@@ -9,8 +9,8 @@ Thank you for considering contributing! This template helps students build AI em
 ## Local Setup
 
 ```bash
-git clone https://github.com/systemstoscale/AI-Employee.git
-cd AI-Employee
+git clone https://github.com/systemstoscale/AI-Systems.git
+cd AI-Systems
 ```
 
 ## Development Workflow

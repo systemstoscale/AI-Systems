@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Meeting Intelligence - Template for AI Employee module.
+Meeting Intelligence - Template for AI Systems module.
 
 Search Google Meet transcripts, list upcoming meetings, and generate digests.
 

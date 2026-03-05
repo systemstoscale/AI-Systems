@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Slack Intelligence - Template for AI Employee module.
+Slack Intelligence - Template for AI Systems module.
 
 Reads Slack channels, extracts action items, and generates summaries.
 Feeds into the Daily Brief for context on team activity.

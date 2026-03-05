@@ -10,4 +10,4 @@ Run the daily brief script and display the results.
 
 If the script doesn't exist or fails:
 - Tell the user to configure their data sources in `scripts/daily-brief.py`
-- Point them to `context/ai-employee.md` for the module registry
+- Point them to `context/ai-systems.md` for the module registry

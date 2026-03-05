@@ -1,19 +1,18 @@
 # Personal Context
 
 ## About Me
-- **Name**: Maxime Warnault
-- **Role**: Founder, Skalers.io
-- **Experience with code**: Advanced
+- **Name**: [Your name]
+- **Role**: [Founder / CEO / Operator / etc.]
+- **Experience with code**: [None / Basic / Intermediate / Advanced]
 
 ## How I Work
-- **Communication style**: Brief and direct
-- **Preferred output format**: Markdown
-- **Risk tolerance**: Move fast — don't ask, just do it
+- **Communication style**: [Brief and direct / Detailed / etc.]
+- **Preferred output format**: [Markdown / Google Docs / etc.]
+- **Risk tolerance**: [Move fast / Check with me first / Conservative]
 
 ## What I Use This Workspace For
-- Managing the entire business while away (hiking, off-grid, etc.)
-- Automating and delegating business operations
-- Running Skalers.io without being the bottleneck
+- [Primary use case]
+- [Secondary use case]
 
 ## Pet Peeves
-- Never use em dashes (—) anywhere, ever
+- [Things you never want the AI to do]
