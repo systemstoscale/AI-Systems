@@ -1,19 +1,30 @@
 # Context — Session Initialization
 
-You are starting a new session. Get up to speed on who you're working for and what's happening.
+You are starting a new session. Get up to speed.
 
 ## Steps
 
-1. **Read all context files** in `context/` — business, personal, strategy, and data (if they exist and are filled in)
-2. **Scan instructions** — list what's in `instructions/` so you know what task guides are available
-3. **Scan scripts** — list what's in `scripts/` so you know what code is ready to run
+1. **Read context files** in `context/`:
+   - `business.md` — company, product, tech stack
+   - `personal.md` — who you're working for, preferences
+   - `strategy.md` — current goals and priorities
+
+2. **Sync tasks and patterns**:
+   - Read `context/lessons.md` — patterns to avoid repeating mistakes
+   - Read `context/todo.md` — open items and what's in progress
+
+3. **Scan available tools**:
+   - List files in `instructions/` (task guides)
+   - List files in `scripts/` (runnable code)
 
 ## Response
 
-After reading everything, respond with:
-- **Who you're working for** (1 sentence from business + personal context)
-- **Current top priority** (1 sentence from strategy context)
-- **Available tools** (list of instructions and scripts you found)
+After reading, respond with:
+- **Who you're working for** (1 sentence)
+- **Current top priority** (from strategy)
+- **Open tasks** (from todo.md, if any)
+- **Recent lessons** (from lessons.md, if any)
+- **Available tools** (instructions + scripts found)
 - Then ask: **"What would you like to work on?"**
 
-Keep it brief. Do NOT dump the full contents of every file. Just show you understand the big picture.
+Keep it brief. Do NOT dump the full contents of every file.
