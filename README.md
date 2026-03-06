@@ -18,14 +18,6 @@ context/       →  instructions/  →  scripts/   →  outputs/
 (who you are)     (what to do)      (how)         (results)
 ```
 
-When something breaks, it doesn't just fail. It learns:
-
-```
-Error → Read error → Fix code → Test → Update instruction → System improved
-```
-
-Every failure makes the system smarter. Fixes get documented so the same mistake never happens twice.
-
 ---
 
 ## Quick Start
@@ -34,7 +26,7 @@ Every failure makes the system smarter. Fixes get documented so the same mistake
 
 - **Node.js 18+** - [Download](https://nodejs.org)
 - **Python 3** - For running scripts (already installed on most machines)
-- **VS Code** with [Claude Code extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code), or [Google Antigravity](https://antigravity.google) (free tier available, AI built in)
+- **VS Code** with [Claude Code extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code), or [Google Antigravity](https://antigravity.google) (free tier available)
 
 ### 1. Clone and open
 
@@ -55,27 +47,7 @@ Start Claude Code, then run the interactive setup - it asks you questions and fi
 
 Takes about 5 minutes. Answer the questions and it writes everything for you.
 
-> Want to fill in the files manually instead? Check `context/_examples.md` for three filled-in examples.
-
-### 3. See what's available
-
-```
-/status
-```
-
-Shows all 15 modules, what's installed, what's missing, and the exact command to install each one.
-
-### 4. Install modules
-
-```
-/install daily-brief
-/install prospecting
-/install command-center
-```
-
-One command per module. The AI handles everything - checks prerequisites, asks for API keys (with links to get them), creates scripts, tests, and updates the registry. You just paste keys when asked.
-
-### 5. Start working
+### 3. Start working
 
 Every new session:
 ```
@@ -114,36 +86,25 @@ Claude will read your social data, analyze your reach, engagement, and content, 
 ```
 AI-Systems/
 ├── .claude/
-│   ├── settings.json          # Permissions (safe mode)
+│   ├── settings.json          # Permissions
 │   └── commands/
 │       ├── setup.md           # /setup - interactive first-time setup
-│       ├── context.md         # /context - load context each session
-│       ├── brief.md           # /brief - daily briefing
-│       └── checkin.md         # /checkin - productivity check-in
+│       └── context.md         # /context - load context each session
 │
 ├── CLAUDE.md                  # AI behavior rules
 │
 ├── context/                   # Your AI system's onboarding
 │   ├── business.md            # Your company / project
 │   ├── personal.md            # Your role & preferences
-│   ├── strategy.md            # Current goals & priorities
-│   ├── data.md                # Current metrics (optional)
-│   ├── todo.md                # Running task list
-│   ├── lessons.md             # Patterns learned from mistakes
-│   └── ai-systems.md         # Module registry (track active modules)
+│   └── strategy.md            # Current goals & priorities
 │
 ├── instructions/              # Task guides and plans
 │   ├── _template.md           # Template for new instructions
-│   └── _example-*.md          # 10 example instructions
+│   └── _example-social-media-analysis.md
 │
 ├── scripts/                   # Code that does the work
 │   ├── fetch-social.py        # Fetch social media profiles (ScrapeCreators)
-│   ├── daily-brief.py         # Morning briefing (Stripe + custom)
-│   ├── fetch-metrics.py       # Metrics aggregation layer
-│   ├── meeting-intel.py       # Google Meet transcript search
-│   ├── email-capture.py       # Gmail inbox digest
-│   ├── slack-intel.py         # Slack channel summaries
-│   └── fetch-social-profiles.py  # Social media data
+│   └── _example.py            # Template for new scripts
 │
 └── outputs/                   # Generated content goes here
 ```
@@ -156,67 +117,6 @@ AI-Systems/
 |---------|-------------|
 | `/setup` | First-time setup. Asks you questions, fills in all your context files automatically. |
 | `/context` | Loads your context so Claude knows who you are. Run at the start of every session. |
-| `/status` | Shows all modules, what's installed, what's missing, and how to install each one. |
-| `/install <module>` | Installs any module. Handles API keys, scripts, testing, and registry. |
-| `/connect` | Connect external tools (Gmail, Calendar, Slack) via Composio or manual API. |
-| `/brief` | Generates your daily briefing (revenue, pipeline, health, tasks). |
-| `/checkin` | Runs a productivity check-in based on time of day. |
-
----
-
-## AI Systems Modules
-
-Every module installs with one command: `/install <module-name>`. Each is independent - nothing breaks if you skip one.
-
-### Core Modules
-
-| # | Module | Install | What It Does |
-|---|--------|---------|-------------|
-| 1 | Context OS | _(built in)_ | Loads your business context each session (`/context`) |
-| 2 | Daily Brief | `/install daily-brief` | Morning briefing: revenue, pipeline, health, tasks |
-| 3 | Data Dashboard | `/install data-dashboard` | Aggregates metrics from your integrations |
-| 4 | Productivity | `/install productivity` | Goal tracking, habit logging, day review (`/checkin`) |
-| 5 | Slack Intelligence | `/install slack-intel` | Channel summaries, action item extraction |
-| 6 | Meeting Intelligence | `/install meeting-intel` | Google Meet transcript search, meeting digest |
-| 7 | Email Capture | `/install email-capture` | Gmail inbox digest, categorized by urgency |
-| 8 | Command Center | `/install command-center` | Telegram bot - AI Systems on your phone |
-
-### Business Modules
-
-| # | Module | Install | What It Does |
-|---|--------|---------|-------------|
-| 9 | Prospecting | `/install prospecting` | Lead scraping, enrichment, cold email, reply classification |
-| 10 | Content Pipeline | `/install content` | Topic research, scripts, social repurposing, publishing |
-| 11 | Paid Ads | `/install ads` | Ad monitoring, alerts, optimization recommendations |
-| 12 | Image Generation | `/install images` | AI image generation for brand assets and thumbnails |
-| 13 | Video Creation | `/install video` | AI voice, avatar, auto-editing, clip extraction |
-| 14 | Partnerships | `/install partners` | Referral tracking, testimonials, partner program |
-| 15 | Operations | `/install ops` | Daily briefs, KPIs, inbox management, habits |
-
-**Start with Context OS** (already built in). Run `/status` to see what's available, then install one module at a time.
-
-Track which modules you've activated in `context/ai-systems.md`.
-
----
-
-## Examples
-
-Examples are built into the workspace - no setup needed:
-
-- **`instructions/_example-*.md`** - Example instructions:
-
-| File | Use Case |
-|------|----------|
-| `_example-social-media-analysis.md` | Analyze your social presence and create a growth strategy |
-| `_example-write-blog-post.md` | SEO blog writing |
-| `_example-repurpose-content.md` | Multi-platform content repurposing |
-| `_example-research-paper.md` | Academic paper writing |
-| `_example-study-guide.md` | Exam study guides |
-| `_example-weekly-report.md` | Weekly status reports |
-| `_example-competitor-analysis.md` | Competitor research |
-| `_example-daily-brief.md` | Daily briefing module setup |
-| `_example-data-dashboard.md` | Metrics aggregation setup |
-| `_example-checkin.md` | Productivity check-in setup |
 
 ---
 
@@ -239,4 +139,3 @@ Or just describe what you want to Claude - it will design the workflow and creat
 **"SCRAPECREATORS_API_KEY not set"** - Open `.env` and add your key. Get one free at [scrapecreators.com](https://scrapecreators.com).
 
 **Script errors** - Make sure you have Python 3 installed: `python3 --version`. No pip installs needed - the script uses standard library only.
-

@@ -39,16 +39,13 @@ When you discover something new - API limits, edge cases, better approaches - up
 ### Rule 5: Save outputs properly
 Generated content goes to `outputs/`. Plans go to `instructions/`. Never leave important work in temporary locations.
 
-### Rule 6: Track tasks and lessons
-Keep `context/todo.md` updated with current tasks. When something breaks and you fix it, add the pattern to `context/lessons.md` so the same mistake never happens twice.
-
 ## Folder Map
 
 | Folder | Purpose |
 |--------|---------|
-| `context/` | Business info, your role, strategy, tasks (`todo.md`), patterns (`lessons.md`) |
-| `instructions/` | Task guides, plans, reference docs, SOPs (see `_example-*.md` files for reference) |
-| `scripts/` | Code - executions, utilities, data fetchers |
+| `context/` | Business info, your role, strategy |
+| `instructions/` | Task guides, plans, reference docs |
+| `scripts/` | Code - utilities, data fetchers |
 | `outputs/` | Generated work - reports, docs, presentations |
 
 ## Self-Correction Loop
@@ -64,46 +61,8 @@ This is what makes the system get smarter over time. Every fix gets documented s
 - **Ask before spending money.** Confirm before running paid APIs.
 - **One script, one job.** Keep scripts focused and reusable.
 - **Local first.** Save to `outputs/` unless told otherwise.
-- **Check the skills library.** Before writing custom code, check: https://github.com/anthropics/skills
-
-## Base Modules (Built In)
-
-These come with the template. Install them one at a time with `/install <name>`.
-
-| # | Module | Command | What It Does |
-|---|--------|---------|-------------|
-| 1 | Context OS | `/context` | Loads business context each session (built in) |
-| 2 | Daily Brief | `/brief` | Morning briefing: revenue, pipeline, health, tasks |
-| 3 | Data Dashboard | -- | Aggregates metrics from all integrations |
-| 4 | Productivity | `/checkin` | Goal tracking, habit logging, day review |
-| 5 | Slack Intelligence | -- | Channel summaries, action item extraction |
-| 6 | Meeting Intelligence | -- | Google Meet transcript search, meeting digest |
-| 7 | Email Capture | -- | Gmail inbox digest, categorized by urgency |
-| 8 | Command Center | -- | Telegram bot - AI system on your phone |
-
-**Start here:** Context OS is built in. Run `/setup` to fill your context files, then `/context` at the start of every session.
-
-## The 6 Systems (Coaching Program)
-
-Business automation systems available to coaching clients. Each system adds instruction files and scripts to your workspace.
-
-| # | System | What It Does |
-|---|--------|-------------|
-| 1 | The Prospecting System | Lead scraping, email enrichment, cold email campaigns |
-| 2 | The Content System | Content research, script generation, social publishing |
-| 3 | The Acquisition System | Ad monitoring, funnel tracking, optimization |
-| 4 | The Partners System | Referral tracking, testimonials, partner management |
-| 5 | The Operations System | Daily briefs, dashboards, Telegram commands |
-| 6 | The Data System | Market research, competitor tracking, analytics |
-
-Get access: skalers.io → Coaching Program. Install only what you need.
 
 ## Commands
 
 - `/setup` - First-time setup: asks you questions, fills in all context files automatically
 - `/context` - Load context and orient yourself for the session (run at start of every session)
-- `/status` - See all modules, what's installed, what's available, and how to install each one
-- `/install <module>` - Install any module: handles API keys, scripts, testing, and registry update
-- `/connect` - Connect external tools (Gmail, Calendar, Slack) via Composio or manual API
-- `/brief` - Run your daily brief (requires daily-brief module setup)
-- `/checkin` - Run a productivity check-in
