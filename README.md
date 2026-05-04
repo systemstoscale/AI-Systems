@@ -87,9 +87,14 @@ Claude will read your social data, analyze your reach, engagement, and content, 
 AI-Systems/
 ├── .claude/
 │   ├── settings.json          # Permissions
-│   └── commands/
-│       ├── setup.md           # /setup - interactive first-time setup
-│       └── context.md         # /context - load context each session
+│   ├── commands/
+│   │   ├── setup.md           # /setup - interactive first-time setup
+│   │   └── context.md         # /context - load context each session
+│   └── skills/                # Reusable workflows
+│       ├── social-media-analysis/
+│       │   └── SKILL.md       # Analyze social media profiles
+│       └── weekly-report/
+│           └── SKILL.md       # Generate weekly business report
 │
 ├── CLAUDE.md                  # AI behavior rules
 │
@@ -97,14 +102,6 @@ AI-Systems/
 │   ├── business.md            # Your company / project
 │   ├── personal.md            # Your role & preferences
 │   └── strategy.md            # Current goals & priorities
-│
-├── instructions/              # Task guides and plans
-│   ├── _template.md           # Template for new instructions
-│   └── _example-social-media-analysis.md
-│
-├── scripts/                   # Code that does the work
-│   ├── fetch-social.py        # Fetch social media profiles (ScrapeCreators)
-│   └── _example.py            # Template for new scripts
 │
 └── outputs/                   # Generated content goes here
 ```
@@ -120,13 +117,13 @@ AI-Systems/
 
 ---
 
-## Creating Your Own Instructions
+## Creating Your Own Skills
 
-1. Copy `instructions/_template.md`
-2. Fill in the sections (Goal, Inputs, Steps, Output, etc.)
-3. Save it in `instructions/`
+1. Create a new folder in `.claude/skills/` named after your workflow (e.g. `lead-enrichment`)
+2. Create a `SKILL.md` file inside it with four sections: **Goal**, **Inputs**, **Steps**, **Output**
+3. Or just describe what you want to Claude — it will design the workflow and create the skill file for you
 
-Or just describe what you want to Claude - it will design the workflow and create the instruction file for you.
+Any repeatable task should become a skill. Weekly reports. Lead enrichment. Competitor research. Client onboarding. Each one becomes a one-command workflow you never have to re-explain.
 
 ---
 

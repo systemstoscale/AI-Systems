@@ -13,9 +13,8 @@ You are starting a new session. Get up to speed.
    - Read `context/lessons.md` — patterns to avoid repeating mistakes
    - Read `context/todo.md` — open items and what's in progress
 
-3. **Scan available tools**:
-   - List files in `instructions/` (task guides)
-   - List files in `scripts/` (runnable code)
+3. **Scan available skills**:
+   - List folders in `.claude/skills/` (reusable workflows)
 
 ## Response
 
@@ -24,7 +23,7 @@ After reading, respond with:
 - **Current top priority** (from strategy)
 - **Open tasks** (from todo.md, if any)
 - **Recent lessons** (from lessons.md, if any)
-- **Available tools** (instructions + scripts found)
+- **Available skills** (skills found in `.claude/skills/`)
 - Then ask: **"What would you like to work on?"**
 
 Keep it brief. Do NOT dump the full contents of every file.

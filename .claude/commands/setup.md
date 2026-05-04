@@ -56,47 +56,14 @@ If they say "skip" or "none" or "not right now" — leave `context/data.md` as t
 
 After they answer: Write their responses into `context/data.md`.
 
-## Round 5: Tool Connections (Optional) → uses `scripts/connections.py`
-
-Ask in ONE message:
-1. Want to connect your external tools? This lets your AI Systems read your Gmail, check your calendar, and pull Slack summaries automatically.
-2. You can connect via **Composio** (one-click OAuth, recommended) or set up API keys manually later.
-3. Available tools: **Google** (Gmail + Calendar), **Slack**
-
-If they want Composio:
-1. Ask if they have a Composio account (free at https://composio.dev)
-2. Have them set `COMPOSIO_API_KEY` in `.env`
-3. Run `python scripts/connections.py connect google` for Google
-4. Run `python scripts/connections.py connect slack` for Slack
-
-If they want to skip:
-Say "No problem — you can connect tools later anytime with `/connect`."
-
-## Round 6: Command Center (Optional) → `instructions/command-center-setup.md`
-
-Ask in ONE message:
-1. Do you want to access your AI Systems from your phone via Telegram?
-2. This gives you a Telegram bot that has full access to your workspace — chat, voice notes, photo analysis, charts, and PDFs.
-3. It requires: a Telegram account, an Anthropic API key, and Python 3.12+.
-
-If they want it:
-1. Walk them through `instructions/command-center-setup.md` step by step
-2. Help them create the bot, group, get the group ID
-3. Set env vars in `.env`
-4. Install dependencies and test startup
-
-If they want to skip:
-Say "No problem — you can set up the Command Center later. Follow `instructions/command-center-setup.md` when you're ready."
-
 ## After All Rounds
 
 1. Read back a brief summary of everything you captured — 4-5 bullet points max
-2. Run the init workflow: read all context files, scan instructions and scripts
+2. Run the init workflow: read all context files, scan `.claude/skills/` for available skills
 3. Respond with the standard init output:
    - Who you're working for (1 sentence)
    - Current top priority (1 sentence)
-   - Available tools (list of instructions and scripts)
-   - Connected tools (if any were set up in Round 5)
+   - Available skills (list of folders in `.claude/skills/`)
 4. Then say: **"Your AI system is set up and ready. What would you like to work on?"**
 
 ## Important Rules

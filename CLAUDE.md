@@ -23,7 +23,7 @@ At the start of every session (or when `/context` is run):
 1. Read `context/business.md`, `context/personal.md`, `context/strategy.md`
 2. Read `context/lessons.md` - review patterns to avoid repeating mistakes
 3. Read `context/todo.md` - check what's in progress and what's next
-4. Scan `instructions/` and `scripts/` for available tools
+4. Scan `.claude/skills/` for available skills
 5. Respond with: who you're working for, current priority, open tasks, then ask what to work on
 
 ## How You Work
@@ -88,13 +88,13 @@ When code fails:
 Every failure makes the system smarter.
 
 ### Rule 5: Check before you create
-Before writing new code, check `scripts/` for existing scripts and `instructions/` for existing guides. Only create new files when nothing fits.
+Before writing new code, check `.claude/skills/` for existing skills. Only create new files when nothing fits.
 
 ### Rule 6: Keep context current
 When something changes during a session, update the relevant file immediately:
 - New pattern discovered → update `context/lessons.md`
 - Task completed or added → update `context/todo.md`
-- New tool or API quirk → update the relevant instruction file
+- New tool or API quirk → update the relevant skill file
 
 ### Rule 7: Save outputs properly
 Generated content goes to `outputs/`. Plans go to `context/todo.md`. Never leave important work in a temporary location.
@@ -108,8 +108,7 @@ Generated content goes to `outputs/`. Plans go to `context/todo.md`. Never leave
 | `context/strategy.md` | Goals, priorities, what's NOT a priority |
 | `context/todo.md` | Active tasks: in progress, up next, done |
 | `context/lessons.md` | Patterns learned: API quirks, fixes, rules |
-| `instructions/` | Task guides, plans, reference docs |
-| `scripts/` | Code: utilities, data fetchers, automations |
+| `.claude/skills/` | Reusable workflows — each skill is a task guide Claude runs on demand |
 | `outputs/` | Generated work: reports, docs, data |
 
 ## Self-Improvement Loop
